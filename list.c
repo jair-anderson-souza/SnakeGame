@@ -122,14 +122,6 @@ void d(Snake* snake, Snake* snakeTemp) {
     }
 }
 
-void printSnake(Snake* snake) {
-    while (snake != NULL) {
-        mvaddch(snake->coordinatey, snake->coordinatex, ACS_DIAMOND);
-        snake = snake->next;
-    }
-}
-
-
 //novo cálculo passando as coordenadas
 
 Snake* calculateNextCell(Screen* screen, Snake* newSnake) {
@@ -149,7 +141,7 @@ void isEdge(Screen* screen) {
     // 43, 130
     if (screen->snake->coordinatey < 1 || screen->snake->coordinatex < 1 ||
             screen->snake->coordinatey > 42 || screen->snake->coordinatex > 129) {
-        freeSnake(screen->snake);
+        //        freeSnake(screen->snake);
         freeBoard(screen);
         endwin();
     }

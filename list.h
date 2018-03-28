@@ -26,7 +26,6 @@
 typedef struct screen Screen;
 typedef struct snake Snake;
 
-//Screen* createScreen(Snake* snake);
 
 int calculateMiddleScreen(int value);
 //return some error e.g.
@@ -46,11 +45,15 @@ int keyPressed(int previous);
 
 void d(Snake* snake, Snake* snakeTemp);
 
-void printSnake(Snake* snake);
+
+int keyPressed(int previous);
 
 //novo cálculo passando as coordenadas
+
 Snake* calculateNextCell(Screen* screen, Snake* newSnake);
+
 void isEdge(Screen* screen);
+
 int nextMovement(Screen* screen, int movement);
 
 

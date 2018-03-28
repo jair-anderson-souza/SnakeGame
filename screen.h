@@ -13,9 +13,10 @@
 
 #include <ncurses.h>
 
-#define size_screen_y getmaxy(stdscr)
-#define size_screen_x getmaxx(stdscr)
-
+#define down 0402  
+#define up 0403  
+#define left 0404  
+#define right 0405
 
 typedef struct screen Screen;
 typedef struct snake Snake;
@@ -32,7 +33,24 @@ int calculateMiddleScreen(int value);
 
 Snake* createSnake(int y, int x);
 
+void printSnake(Snake* snake);
+
+int nextMovement(Screen* screen, int movement);
+
+Snake* calculateCoordinate(int y, int x, int newDirection);
+
+Snake* createNewSnake(int y, int x);
+
+Snake* calculateNextCell(Screen* screen, Snake* newSnake);
+
+void isEdge(Screen* screen);
+
+void freeSnake(Snake* snake);
+
+void freeBoard(Screen* screen);
+
 void endWindow();
+
 //Screen* createScreen(Snake* snake);
 //
 //

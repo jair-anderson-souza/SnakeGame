@@ -14,15 +14,27 @@
 #include "screen.h"
 #include "list.h"
 
+#define size_screen_y getmaxy(stdscr)
+#define size_screen_x getmaxx(stdscr)
+
 int main(int argc, char** argv) {
     int y = 0, x = 0;
 
     init_mode_cursor();
 
+    int key = right;
+    Screen* screen = initGame(size_screen_y, size_screen_x);
+    while (true) {
+        clear();
+        printSnake(screen->snake);
+        //moveSnake(screen->snake, key);
+        key = keyPressed(key);
+        nextMovement(screen, key);
+        refresh();
+    }
 
-    Screen* screen = initGame(y, x);
-    
-    
+
+
     //    Screen* screen = createScreen(y, x);
 
 
