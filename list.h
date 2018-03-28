@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
+#include <ncurses.h>
 
 #define size_screen_y getmaxy(stdscr)
 #define size_screen_x getmaxx(stdscr)
@@ -24,6 +26,7 @@
 #define right 0405
 
 typedef struct screen Screen;
+typedef struct food Food;
 typedef struct snake Snake;
 
 
@@ -46,7 +49,6 @@ void free_board(Screen* screen);
 
 Snake* calculate_coordinate(int y, int x, int newDirection);
 
-
 void d(Snake* snake, Snake* snakeTemp);
 //novo cálculo passando as coordenadas
 Snake* calculate_next_cell(Screen* screen, Snake* newSnake);
@@ -54,3 +56,5 @@ Snake* calculate_next_cell(Screen* screen, Snake* newSnake);
 bool movement_is_valid(Snake* snake);
 
 bool next_movement(Screen* screen, int movement);
+
+void create_food(Screen* screen);

@@ -64,3 +64,7 @@ int key_pressed(int previous) {
             return previous;
     }
 }
+
+void end_window() {
+    endwin();
+}

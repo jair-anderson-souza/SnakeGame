@@ -1,8 +1,6 @@
 
 
-#include <time.h>
 #include "list.h"
-#include <ncurses.h>
 
 struct snake {
     int coordinatey;
@@ -10,8 +8,14 @@ struct snake {
     Snake* next;
 };
 
+struct food {
+    int coordinatey;
+    int coordinatex;
+};
+
 struct screen {
     Snake* snake;
+    Food* food;
     int coordinatey;
     int coordinatex;
 };
@@ -120,7 +124,7 @@ Snake* calculate_next_cell(Screen* screen, Snake* newSnake) {
 
 bool movement_is_valid(Snake* snake) {
     // 43, 130
-    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > 42 || snake->coordinatex > 129) {
+    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y || snake->coordinatex > size_screen_x) {
         return FALSE;
     }
     return TRUE;
@@ -132,10 +136,10 @@ bool next_movement(Screen* screen, int movement) {
     calculate_next_cell(screen, snakeTemp);
 
     print_snake(screen);
-    
+
     return movement_is_valid(snakeTemp);
     //checkNextMovementIsTheSame
-    
+
     //checkIfCrashOnTheWall
 
     //checkTail
@@ -145,6 +149,18 @@ bool next_movement(Screen* screen, int movement) {
 
     //finally, move snake
 
-    
-//    return TRUE;
+
+    //    return TRUE;
+}
+
+void create_food(Screen* screen) {
+    time_t t;
+    srand((unsigned) time(&t));
+    int random_y = rand() % 43;
+    int random_x = rand() % 130;
+    Food* food = (Food*) malloc(sizeof (Food));
+    food->coordinatey = random_y;
+    food->coordinatex = random_x;
+    screen->food = food;
+    mvaddch(screen->food->coordinatey, screen->food->coordinatex, ACS_DIAMOND);
 }
