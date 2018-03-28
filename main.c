@@ -10,6 +10,8 @@
  *
  * Created on March 27, 2018, 7:32 PM
  */
+#include <stdlib.h>
+#include <stdio.h>
 #include <ncurses.h>
 #include "screen.h"
 #include "list.h"
@@ -18,18 +20,18 @@
 #define size_screen_x getmaxx(stdscr)
 
 int main(int argc, char** argv) {
-    int y = 0, x = 0;
 
     init_mode_cursor();
 
     int key = right;
-    Screen* screen = initGame(size_screen_y, size_screen_x);
+    Screen* screen = init_game(size_screen_y, size_screen_x);
+
     while (true) {
         clear();
-        printSnake(screen->snake);
+        print_snake(screen);
         //moveSnake(screen->snake, key);
-        key = keyPressed(key);
-        nextMovement(screen, key);
+        key = key_pressed(key);
+        next_movement(screen, key);
         refresh();
     }
 

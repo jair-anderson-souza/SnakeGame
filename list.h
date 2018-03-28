@@ -13,7 +13,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <ncurses.h>
 
 #define size_screen_y getmaxy(stdscr)
 #define size_screen_x getmaxx(stdscr)
@@ -27,34 +26,30 @@ typedef struct screen Screen;
 typedef struct snake Snake;
 
 
-int calculateMiddleScreen(int value);
+Screen* init_game(int y, int x);
+
+Screen* create_screen(int y, int x);
+
+int calculate_middle_screen(int value);
+
+void print_snake(Screen* screen);
 //return some error e.g.
-Snake* createSnake();
+Snake* create_snake(int y, int x);
 
-void killScreen();
+void kill_screen();
 
-void freeSnake(Snake* snake);
+void free_snake(Snake* snake);
 
-void freeBoard(Screen* screen);
+void free_board(Screen* screen);
 
-Snake* createNewSnake(int y, int x);
 
-Snake* calculateCoordinate(int y, int x, int newDirection);
+Snake* calculate_coordinate(int y, int x, int newDirection);
 
-int keyPressed(int previous);
 
 void d(Snake* snake, Snake* snakeTemp);
-
-
-int keyPressed(int previous);
-
 //novo cálculo passando as coordenadas
+Snake* calculate_next_cell(Screen* screen, Snake* newSnake);
 
-Snake* calculateNextCell(Screen* screen, Snake* newSnake);
+void is_edge(Screen* screen);
 
-void isEdge(Screen* screen);
-
-int nextMovement(Screen* screen, int movement);
-
-
-
+int next_movement(Screen* screen, int movement);

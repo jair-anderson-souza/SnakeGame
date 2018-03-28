@@ -25,58 +25,7 @@ int draw_menu();
 
 int init_mode_cursor();
 
-Screen* initGame(int y, int x);
+int key_pressed(int previous);
 
-Screen* createScreen(int y, int x);
+void end_window();
 
-int calculateMiddleScreen(int value);
-
-Snake* createSnake(int y, int x);
-
-void printSnake(Snake* snake);
-
-int nextMovement(Screen* screen, int movement);
-
-Snake* calculateCoordinate(int y, int x, int newDirection);
-
-Snake* createNewSnake(int y, int x);
-
-Snake* calculateNextCell(Screen* screen, Snake* newSnake);
-
-void isEdge(Screen* screen);
-
-void freeSnake(Snake* snake);
-
-void freeBoard(Screen* screen);
-
-void endWindow();
-
-//Screen* createScreen(Snake* snake);
-//
-//
-//int calculateMiddleScreen(int value);
-////return some error e.g.
-//Snake* createSnake();
-//
-//void killScreen();
-//
-//void freeSnake(Snake* snake);
-//
-//void freeBoard(Screen* screen);
-//
-//
-//Snake* createNewSnake(int y, int x);
-//
-//Snake* calculateCoordinate(int y, int x, int newDirection);
-//
-//int keyPressed(int previous);
-//
-//void d(Snake* snake, Snake* snakeTemp);
-//
-//void printSnake(Snake* snake);
-//
-////novo cálculo passando as coordenadas
-//Snake* calculateNextCell(Screen* screen, Snake* newSnake);
-//void isEdge(Screen* screen);
-//int nextMovement(Screen* screen, int movement)
-//

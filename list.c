@@ -3,8 +3,6 @@
 #include <time.h>
 #include "list.h"
 #include <ncurses.h>
-#define size_screen_y getmaxy(stdscr)
-#define size_screen_x getmaxx(stdscr)
 
 struct snake {
     int coordinatey;
@@ -18,40 +16,55 @@ struct screen {
     int coordinatex;
 };
 
-Screen* createScreen(Snake* snake) {
+Screen* init_game(int y, int x) {
+    Screen* screen = create_screen(y, x);
+    int middley = calculate_middle_screen(y);
+    int middlex = calculate_middle_screen(x);
+    screen->snake = create_snake(middley, middlex);
+    return screen;
+}
+
+Screen* create_screen(int y, int x) {
     Screen* screen = (Screen*) malloc(sizeof (Screen));
     if (screen != NULL) {
-        screen->coordinatey = size_screen_y;
-        screen->coordinatex = size_screen_x;
-        screen->snake = snake;
+        screen->coordinatey = y;
+        screen->coordinatex = x;
         return screen;
     }
     //lembrar de pesquisar como mandar erro pra tela
     return NULL;
 }
 
-int calculateMiddleScreen(int value) {
+int calculate_middle_screen(int value) {
     return value / 2;
+}
+
+void print_snake(Screen* screen) {
+    Snake* snake = screen->snake;
+    while (snake != NULL) {
+        mvaddch(snake->coordinatey, snake->coordinatex, ACS_DIAMOND);
+        snake = snake->next;
+    }
 }
 
 //return some error e.g.
 
-Snake* createSnake() {
-    int middley = calculateMiddleScreen(size_screen_y);
-    int middlex = calculateMiddleScreen(size_screen_x);
+Snake* create_snake(int y, int x) {
+    //    int middley = calculate_middle_screen(y);
+    //    int middlex = calculate_middle_screen(x);
     Snake* snake = (Snake*) malloc(sizeof (Snake));
     if (snake != NULL) {
-        snake->coordinatey = middley;
-        snake->coordinatex = middlex;
+        snake->coordinatey = y;
+        snake->coordinatex = x;
         return snake;
     }
 }
 
-void killScreen() {
+void kill_screen() {
     endwin();
 }
 
-void freeSnake(Snake* snake) {
+void free_snake(Snake* snake) {
     Snake* p = snake;
     while (p != NULL) {
         Snake* t = p->next; /* guarda refer�ncia p/ pr�x. elemento */
@@ -61,17 +74,12 @@ void freeSnake(Snake* snake) {
 
 }
 
-void freeBoard(Screen* screen) {
+void free_board(Screen* screen) {
     free(screen);
 }
 
-Snake* createNewSnake(int y, int x) {
-    Snake* snake = (Snake*) malloc(sizeof (Snake));
-    snake->coordinatey = y;
-    snake->coordinatex = x;
-}
-
-Snake* calculateCoordinate(int y, int x, int newDirection) {
+Snake* calculate_coordinate(int y, int x, int newDirection) {
+    printf("%d", newDirection);
     switch (newDirection) {
         case left:
             x = x - 1;
@@ -88,31 +96,7 @@ Snake* calculateCoordinate(int y, int x, int newDirection) {
         default:
             break;
     }
-    return createNewSnake(y, x);
-}
-
-int keyPressed(int previous) {
-    int keyPressed = getch();
-    switch (keyPressed) {
-        case left:
-            if (previous != right) {
-                return left;
-            }
-        case right:
-            if (previous != left) {
-                return right;
-            }
-        case down:
-            if (previous != up) {
-                return down;
-            }
-        case up:
-            if (previous != down) {
-                return up;
-            }
-        default:
-            return previous;
-    }
+    return create_snake(y, x);
 }
 
 void d(Snake* snake, Snake* snakeTemp) {
@@ -124,7 +108,7 @@ void d(Snake* snake, Snake* snakeTemp) {
 
 //novo cálculo passando as coordenadas
 
-Snake* calculateNextCell(Screen* screen, Snake* newSnake) {
+Snake* calculate_next_cell(Screen* screen, Snake* newSnake) {
     newSnake->next = screen->snake;
     screen->snake = newSnake;
     Snake* snakeTemp = screen->snake;
@@ -137,22 +121,19 @@ Snake* calculateNextCell(Screen* screen, Snake* newSnake) {
     snakeTemp->next = NULL;
 }
 
-void isEdge(Screen* screen) {
+void is_edge(Screen* screen) {
     // 43, 130
     if (screen->snake->coordinatey < 1 || screen->snake->coordinatex < 1 ||
             screen->snake->coordinatey > 42 || screen->snake->coordinatex > 129) {
         //        freeSnake(screen->snake);
-        freeBoard(screen);
+        free_board(screen);
         endwin();
     }
 }
 
-int nextMovement(Screen* screen, int movement) {
+int next_movement(Screen* screen, int movement) {
+    Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
 
-    Snake* snakeTemp = calculateCoordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
-
-    // printw("%d\n", snakeTemp->coordinatey);
-    int a = getch();
     //checkNextMovementIsTheSame
     //checkIfCrashOnTheWall
 
@@ -163,9 +144,9 @@ int nextMovement(Screen* screen, int movement) {
 
     //finally, move snake
 
-    calculateNextCell(screen, snakeTemp);
+    calculate_next_cell(screen, snakeTemp);
 
-    isEdge(screen);
+    is_edge(screen);
 
-    printSnake(screen->snake);
+    print_snake(screen);
 }
