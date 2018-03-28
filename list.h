@@ -26,7 +26,7 @@
 typedef struct screen Screen;
 typedef struct snake Snake;
 
-Screen* createScreen(Snake* snake);
+//Screen* createScreen(Snake* snake);
 
 int calculateMiddleScreen(int value);
 //return some error e.g.

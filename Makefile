@@ -4,7 +4,7 @@ build:
 	gcc -o snake screen.h screen.c main.c -lncurses
 
 run: build
-	./snake
+#	./snake
 
 
 clean:

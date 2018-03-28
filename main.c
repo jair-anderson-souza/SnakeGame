@@ -12,45 +12,54 @@
  */
 #include <ncurses.h>
 #include "screen.h"
+#include "list.h"
 
 int main(int argc, char** argv) {
+    int y = 0, x = 0;
 
-    Screen* screen = createScreen();
+    init_mode_cursor();
+
+
+    Screen* screen = initGame(y, x);
     
-    printf("Entrou");
-//    initscr();
-//    noecho();
-//    cbreak();
-//    keypad(stdscr, TRUE); //teclas do teclado funcionarem
-//    curs_set(0); //desabilitar cursor
-//    timeout(100);
+    
+    //    Screen* screen = createScreen(y, x);
+
+
+    //    initscr();
+    //    noecho();
+    //    cbreak();
+    //    keypad(stdscr, TRUE); //teclas do teclado funcionarem
+    //    curs_set(0); //desabilitar cursor
+    //    timeout(100);
     // 43, 130
 
-    // Screen* screen = createScreen(createSnake());
 
-//    Snake* snake1 = (Snake*) malloc(sizeof(Snake));
-//    snake1->coordinatey = 10;
-//    snake1->coordinatex = 10;
-//
-//    Snake* snake2 = (Snake*) malloc(sizeof(Snake));
-//    snake2->coordinatey = 10;
-//    snake2->coordinatex = 9;
-//
-//    snake1->next = snake2;
-//
-//    Screen* screen = createScreen(snake1);
-//    int key = right;
-//
-//    while (true) {
-//        clear();
-//        printSnake(screen->snake);
-//        //moveSnake(screen->snake, key);
-//        key = keyPressed(key);
-//        nextMovement(screen, key);
-//        refresh();
-//    }
-//    freeSnake(screen->snake);
-//    freeBoard(screen);
-//    killScreen();
+    //    screen
+
+    //    Snake* snake1 = malloc(sizeof(Snake));
+    //    snake1->coordinatey = 10;
+    //    snake1->coordinatex = 10;
+    //
+    //    Snake* snake2 = (Snake*) malloc(sizeof(Snake));
+    //    snake2->coordinatey = 10;
+    //    snake2->coordinatex = 9;
+    //
+    //    snake1->next = snake2;
+    //
+    //    Screen* screen = createScreen(snake1, 10, 10);
+    //    int key = right;
+    //
+    //    while (true) {
+    //        clear();
+    //        printSnake(screen->snake);
+    //        //moveSnake(screen->snake, key);
+    //        key = keyPressed(key);
+    //        nextMovement(screen, key);
+    //        refresh();
+    //    }
+    //    freeSnake(screen->snake);
+    //    freeBoard(screen);
+    //    killScreen();
     return 0;
 }

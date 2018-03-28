@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "screen.h"
 
 struct screen {
@@ -27,9 +28,51 @@ struct snake {
     Snake* next;
 };
 
-Screen* createScreen() {
-    Screen* screen = (Screen*) malloc(sizeof (Screen));
+int draw_menu() {
+    //escrever menu
+}
+
+int init_mode_cursor() {
+    initscr();
+    noecho();
+    cbreak();
+    keypad(stdscr, TRUE); //teclas do teclado funcionarem
+    curs_set(0); //desabilitar cursor
+    timeout(100);
+}
+
+Screen* initGame(int y, int x) {
+    Screen* screen = createScreen(y, x);
+    screen->snake = createSnake(y, x);
     return screen;
 }
 
+int calculateMiddleScreen(int value) {
+    return value / 2;
+}
 
+Screen* createScreen(int y, int x) {
+    Screen* screen = (Screen*) malloc(sizeof (Screen));
+    if (screen != NULL) {
+        screen->coordinatey = y;
+        screen->coordinatex = x;
+        return screen;
+    }
+    return NULL;
+}
+
+Snake* createSnake(int y, int x) {
+    int middley = calculateMiddleScreen(y);
+    int middlex = calculateMiddleScreen(x);
+    Snake* snake = (Snake*) malloc(sizeof (Snake));
+    if (snake != NULL) {
+        snake->coordinatey = middley;
+        snake->coordinatex = middlex;
+        return snake;
+    }
+    return NULL;
+}
+
+void endWindow() {
+    endwin();
+}
