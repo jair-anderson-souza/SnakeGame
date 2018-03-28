@@ -28,15 +28,15 @@ int main(int argc, char** argv) {
 
     Screen* screen = init_game(size_screen_y, size_screen_x);
 
-    int food = create_food(screen);
+    create_food(screen);
 
     while (next) {
         clear();
         print_snake(screen);
+        print_food(screen);
         //moveSnake(screen->snake, key);
         key = key_pressed(key);
         next = next_movement(screen, key);
-        printw("%d", food);
         refresh();
     }
 

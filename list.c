@@ -51,9 +51,14 @@ void print_snake(Screen* screen) {
     }
 }
 
+void print_food(Screen * screen) {
+    Food* food = screen->food;
+    mvaddch(food->coordinatey, food->coordinatex, ACS_BLOCK);
+}
+
 //return some error e.g.
 
-Snake* create_snake(int y, int x) {
+Snake * create_snake(int y, int x) {
     //    int middley = calculate_middle_screen(y);
     //    int middlex = calculate_middle_screen(x);
     Snake* snake = (Snake*) malloc(sizeof (Snake));
@@ -68,7 +73,7 @@ void kill_screen() {
     endwin();
 }
 
-void free_snake(Snake* snake) {
+void free_snake(Snake * snake) {
     Snake* p = snake;
     while (p != NULL) {
         Snake* t = p->next;
@@ -78,11 +83,11 @@ void free_snake(Snake* snake) {
 
 }
 
-void free_board(Screen* screen) {
+void free_board(Screen * screen) {
     free(screen);
 }
 
-Snake* calculate_coordinate(int y, int x, int newDirection) {
+Snake * calculate_coordinate(int y, int x, int newDirection) {
     switch (newDirection) {
         case left:
             x = x - 1;
@@ -102,7 +107,7 @@ Snake* calculate_coordinate(int y, int x, int newDirection) {
     return create_snake(y, x);
 }
 
-void d(Snake* snake, Snake* snakeTemp) {
+void d(Snake* snake, Snake * snakeTemp) {
     while (snake != NULL) {
         snake->coordinatey == snakeTemp->coordinatey && snake->coordinatex == snakeTemp->coordinatex;
         snake = snake->next;
@@ -111,7 +116,7 @@ void d(Snake* snake, Snake* snakeTemp) {
 
 //novo cálculo passando as coordenadas
 
-Snake* calculate_next_cell(Screen* screen, Snake* newSnake) {
+Snake * calculate_next_cell(Screen* screen, Snake * newSnake) {
     newSnake->next = screen->snake;
     screen->snake = newSnake;
     Snake* snakeTemp = screen->snake;
@@ -122,7 +127,7 @@ Snake* calculate_next_cell(Screen* screen, Snake* newSnake) {
     snakeTemp->next = NULL;
 }
 
-bool movement_is_valid(Snake* snake) {
+bool movement_is_valid(Snake * snake) {
     // 43, 130
     if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y || snake->coordinatex > size_screen_x) {
         return FALSE;
@@ -153,7 +158,7 @@ bool next_movement(Screen* screen, int movement) {
     //    return TRUE;
 }
 
-void create_food(Screen* screen) {
+void create_food(Screen * screen) {
     time_t t;
     srand((unsigned) time(&t));
     int random_y = rand() % 43;
@@ -162,5 +167,4 @@ void create_food(Screen* screen) {
     food->coordinatey = random_y;
     food->coordinatex = random_x;
     screen->food = food;
-    mvaddch(screen->food->coordinatey, screen->food->coordinatex, ACS_DIAMOND);
 }

@@ -37,6 +37,8 @@ Screen* create_screen(int y, int x);
 int calculate_middle_screen(int value);
 
 void print_snake(Screen* screen);
+
+void print_food(Screen * screen);
 //return some error e.g.
 Snake* create_snake(int y, int x);
 
