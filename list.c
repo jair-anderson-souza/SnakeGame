@@ -67,9 +67,9 @@ void kill_screen() {
 void free_snake(Snake* snake) {
     Snake* p = snake;
     while (p != NULL) {
-        Snake* t = p->next; /* guarda refer�ncia p/ pr�x. elemento */
-        free(p); /* libera a mem�ria apontada por p */
-        p = snake; /* faz p apontar para o pr�ximo */
+        Snake* t = p->next;
+        free(p);
+        p = snake;
     }
 
 }
@@ -79,7 +79,6 @@ void free_board(Screen* screen) {
 }
 
 Snake* calculate_coordinate(int y, int x, int newDirection) {
-    printf("%d", newDirection);
     switch (newDirection) {
         case left:
             x = x - 1;
@@ -112,29 +111,31 @@ Snake* calculate_next_cell(Screen* screen, Snake* newSnake) {
     newSnake->next = screen->snake;
     screen->snake = newSnake;
     Snake* snakeTemp = screen->snake;
-
     while (snakeTemp->next->next) {
         snakeTemp = snakeTemp->next;
     }
-
     free(snakeTemp->next);
     snakeTemp->next = NULL;
 }
 
-void is_edge(Screen* screen) {
+bool movement_is_valid(Snake* snake) {
     // 43, 130
-    if (screen->snake->coordinatey < 1 || screen->snake->coordinatex < 1 ||
-            screen->snake->coordinatey > 42 || screen->snake->coordinatex > 129) {
-        //        freeSnake(screen->snake);
-        free_board(screen);
-        endwin();
+    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > 42 || snake->coordinatex > 129) {
+        return FALSE;
     }
+    return TRUE;
 }
 
-int next_movement(Screen* screen, int movement) {
+bool next_movement(Screen* screen, int movement) {
     Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
 
+    calculate_next_cell(screen, snakeTemp);
+
+    print_snake(screen);
+    
+    return movement_is_valid(snakeTemp);
     //checkNextMovementIsTheSame
+    
     //checkIfCrashOnTheWall
 
     //checkTail
@@ -144,9 +145,6 @@ int next_movement(Screen* screen, int movement) {
 
     //finally, move snake
 
-    calculate_next_cell(screen, snakeTemp);
-
-    is_edge(screen);
-
-    print_snake(screen);
+    
+//    return TRUE;
 }

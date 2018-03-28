@@ -24,18 +24,21 @@ int main(int argc, char** argv) {
     init_mode_cursor();
 
     int key = right;
+    bool next = TRUE;
+
     Screen* screen = init_game(size_screen_y, size_screen_x);
 
-    while (true) {
+    while (next) {
         clear();
         print_snake(screen);
         //moveSnake(screen->snake, key);
         key = key_pressed(key);
-        next_movement(screen, key);
+        next = next_movement(screen, key);
         refresh();
     }
 
 
+    endwin();
 
     //    Screen* screen = createScreen(y, x);
 

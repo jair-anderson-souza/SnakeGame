@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define size_screen_y getmaxy(stdscr)
 #define size_screen_x getmaxx(stdscr)
@@ -50,6 +51,6 @@ void d(Snake* snake, Snake* snakeTemp);
 //novo cálculo passando as coordenadas
 Snake* calculate_next_cell(Screen* screen, Snake* newSnake);
 
-void is_edge(Screen* screen);
+bool movement_is_valid(Snake* snake);
 
-int next_movement(Screen* screen, int movement);
+bool next_movement(Screen* screen, int movement);
