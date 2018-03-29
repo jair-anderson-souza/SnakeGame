@@ -53,9 +53,11 @@ Snake* calculate_coordinate(int y, int x, int newDirection);
 
 void d(Snake* snake, Snake* snakeTemp);
 //novo cálculo passando as coordenadas
-Snake* calculate_next_cell(Screen* screen, Snake* newSnake);
+Screen* calculate_next_cell(Screen* screen, Snake* newSnake);
 
 bool movement_is_valid(Snake* snake);
+
+bool find_food(Screen* screen, Snake* snake, int movement);
 
 bool next_movement(Screen* screen, int movement);
 

@@ -51,22 +51,21 @@ void print_snake(Screen* screen) {
     }
 }
 
-void print_food(Screen * screen) {
+void print_food(Screen* screen) {
     Food* food = screen->food;
     mvaddch(food->coordinatey, food->coordinatex, ACS_BLOCK);
 }
 
 //return some error e.g.
 
-Snake * create_snake(int y, int x) {
-    //    int middley = calculate_middle_screen(y);
-    //    int middlex = calculate_middle_screen(x);
+Snake* create_snake(int y, int x) {
     Snake* snake = (Snake*) malloc(sizeof (Snake));
     if (snake != NULL) {
         snake->coordinatey = y;
         snake->coordinatex = x;
         return snake;
     }
+    return NULL;
 }
 
 void kill_screen() {
@@ -116,7 +115,7 @@ void d(Snake* snake, Snake * snakeTemp) {
 
 //novo cálculo passando as coordenadas
 
-Snake * calculate_next_cell(Screen* screen, Snake * newSnake) {
+Screen* calculate_next_cell(Screen* screen, Snake* newSnake) {
     newSnake->next = screen->snake;
     screen->snake = newSnake;
     Snake* snakeTemp = screen->snake;
@@ -125,40 +124,47 @@ Snake * calculate_next_cell(Screen* screen, Snake * newSnake) {
     }
     free(snakeTemp->next);
     snakeTemp->next = NULL;
+    return screen;
 }
 
 bool movement_is_valid(Snake * snake) {
-    // 43, 130
-    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y || snake->coordinatex > size_screen_x) {
+    if (snake->coordinatey <= 1 || snake->coordinatex <= 1 || snake->coordinatey >= size_screen_y || snake->coordinatex >= size_screen_x) {
         return FALSE;
     }
     return TRUE;
 }
 
-bool next_movement(Screen* screen, int movement) {
-    Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
-
-    calculate_next_cell(screen, snakeTemp);
-
-    print_snake(screen);
-
-    return movement_is_valid(snakeTemp);
-    //checkNextMovementIsTheSame
-
-    //checkIfCrashOnTheWall
-
-    //checkTail
-    //d(snake, snakeTemp);
-
-    //check food
-
-    //finally, move snake
-
-
-    //    return TRUE;
+bool find_food(Screen* screen, Snake* snake, int movement) {
+    if (snake->coordinatey == screen->food->coordinatey && snake->coordinatex == screen->food->coordinatex) {
+        Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
+        snakeTemp->next = screen->snake;
+        screen->snake = snakeTemp;
+        return TRUE;
+    }
+    return TRUE;
 }
 
-void create_food(Screen * screen) {
+bool next_movement(Screen* screen, int movement) {
+    bool v = TRUE;
+    Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
+    screen = calculate_next_cell(screen, snakeTemp);
+
+    //checkIfCrashOnTheWall
+    v = movement_is_valid(snakeTemp);
+    //checkNextMovementIsTheSame
+    //checkTail
+    //        if (d(snake, snakeTemp)) {
+    //            
+    //        }
+
+    //check food
+    find_food(screen, snakeTemp, movement);
+    //finally, move snake
+    print_snake(screen);
+    return v;
+}
+
+void create_food(Screen* screen) {
     time_t t;
     srand((unsigned) time(&t));
     int random_y = rand() % 43;
