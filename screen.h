@@ -17,9 +17,11 @@
 #define up 0403  
 #define left 0404  
 #define right 0405
+#define default_dir right;
 
 typedef struct snake Snake;
 typedef struct screen Screen;
+
 
 int draw_menu();
 
@@ -28,4 +30,3 @@ int init_mode_cursor();
 int key_pressed(int previous);
 
 void end_window();
-

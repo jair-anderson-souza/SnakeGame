@@ -72,9 +72,9 @@ void kill_screen() {
     endwin();
 }
 
-void free_snake(Snake* snake) {
+void freeSnake(Snake* snake) {
     if (snake->next != NULL) {
-        free_snake(snake->next);
+        freeSnake(snake->next);
     }
     free(snake);
 

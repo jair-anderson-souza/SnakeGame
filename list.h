@@ -44,10 +44,9 @@ Snake* create_snake(int y, int x);
 
 void kill_screen();
 
-void free_snake(Snake* snake);
+void freeSnake(Snake* snake);
 
 void free_screen(Screen* screen);
-
 
 Snake* calculate_coordinate(int y, int x, int newDirection);
 

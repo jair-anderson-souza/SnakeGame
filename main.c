@@ -22,8 +22,7 @@
 int main(int argc, char** argv) {
 
     init_mode_cursor();
-
-    int key = right;
+    int key = default_dir;
     bool next = TRUE;
 
     Screen* screen = init_game(size_screen_y, size_screen_x);
@@ -41,7 +40,7 @@ int main(int argc, char** argv) {
     }
     //free snake
     //    Snake* snake = screen->snake;
-    //    free_snake(snake);
+    //    freeSnake(screen->snake);
     free_screen(screen);
     end_window();
     return 0;

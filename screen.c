@@ -16,16 +16,16 @@
 #include <stdbool.h>
 #include "screen.h"
 
-struct screen {
-    int coordinatey;
-    int coordinatex;
-    Snake* snake;
-};
-
 struct snake {
     int coordinatey;
     int coordinatex;
     Snake* next;
+};
+
+struct screen {
+    int coordinatey;
+    int coordinatex;
+    Snake* snake;
 };
 
 int draw_menu() {
@@ -38,30 +38,30 @@ int init_mode_cursor() {
     cbreak();
     keypad(stdscr, TRUE); //teclas do teclado funcionarem
     curs_set(0); //desabilitar cursor
-    timeout(90);
+    timeout(100);
 }
 
-int key_pressed(int previous) {
-    int keyPressed = getch();
-    switch (keyPressed) {
+int key_pressed(int old_dir) {
+    int new_dir = getch();
+    switch (new_dir) {
         case left:
-            if (previous != right) {
+            if (old_dir != right) {
                 return left;
             }
         case right:
-            if (previous != left) {
+            if (old_dir != left) {
                 return right;
             }
         case down:
-            if (previous != up) {
+            if (old_dir != up) {
                 return down;
             }
         case up:
-            if (previous != down) {
+            if (old_dir != down) {
                 return up;
             }
         default:
-            return previous;
+            return old_dir;
     }
 }
 
