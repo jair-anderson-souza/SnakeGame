@@ -23,7 +23,7 @@ struct screen {
 Screen* init_game(int y, int x) {
     Screen* screen = create_screen(y, x);
     int middley = calculate_middle_screen(y);
-    int middlex = calculate_middle_screen(x);
+    int middlex = calculate_middle_screen(x = x);
     screen->snake = create_snake(middley, middlex);
     return screen;
 }
@@ -84,6 +84,7 @@ void free_screen(Screen* screen) {
     free(screen);
 }
 
+//esse metodo atualiza as coordenadas da cobra, de acordo com a direção passada no parâmetro
 Snake * calculate_coordinate(int y, int x, int newDirection) {
     switch (newDirection) {
         case left:
@@ -103,19 +104,20 @@ Snake * calculate_coordinate(int y, int x, int newDirection) {
     }
     return create_snake(y, x);
 }
+//esse método verifica se o movimento da cobra fez ela tocar em si mesma, caso sim o jogo acaba
 
-bool checkTail(Screen* screen, Snake* snakeTemp) {
+int snake_touched_itself(Screen* screen, Snake* snakeTemp) {
     Snake* snake = screen->snake;
     while (snake != NULL) {
         if (snake->coordinatey == snakeTemp->coordinatey && snake->coordinatex == snakeTemp->coordinatex) {
-            return TRUE;
+            return 1;
         }
         snake = snake->next;
     }
-    return FALSE;
+    return 0;
 }
 
-//novo cálculo passando as coordenadas
+//esse método faz a cobra se mover, atualizando
 
 Screen* calculate_next_cell(Screen* screen, Snake* newSnake) {
     newSnake->next = screen->snake;
@@ -129,48 +131,52 @@ Screen* calculate_next_cell(Screen* screen, Snake* newSnake) {
     return screen;
 }
 
-bool movement_is_valid(Snake* snake) {
-    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y || snake->coordinatex > size_screen_x) {
-        return FALSE;
+//esse método verifica se a o novo movimento da cobra fez ela bater na parede do console, caso sim o jogo acaba
+
+int movement_not_crash_in_the_wall(Snake* snake) {
+    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y|| snake->coordinatex > size_screen_x) {
+        return 0;
     }
-    return TRUE;
+    return 1;
 }
 
-bool find_food(Screen* screen, Snake* snake, int movement) {
+
+//esse método ver se a cobra encontrou uma comida, caso sim ela aumenta o tamaho da cobra
+//refatorar esse método
+int find_food(Screen* screen, Snake* snake, int movement) {
     if (snake->coordinatey == screen->food->coordinatey && snake->coordinatex == screen->food->coordinatex) {
         Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
         snakeTemp->next = screen->snake;
         screen->snake = snakeTemp;
-        return TRUE;
+        return 1;
     }
-    return FALSE;
+    return 0;
 }
 
-bool next_movement(Screen* screen, int movement) {
-    bool v = TRUE;
+//refatorar esse método, está uma porcaria
+int next_movement(Screen* screen, int movement) {
+    int movement_is_valid = 1;
     Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
 
-    //checkIfCrashOnTheWall
-    v = movement_is_valid(snakeTemp);
-    //checkNextMovementIsTheSame
+    movement_is_valid = movement_not_crash_in_the_wall(snakeTemp);
 
-    //checkTail
-    if (checkTail(screen, snakeTemp)) {
-        v = FALSE;
+    if (snake_touched_itself(screen, snakeTemp)) {
+        movement_is_valid = 0;
     }
+    //colocar aqui uma condição ou método pra evitar segurar na direção e a cobra ficar indo sem parar
     screen = calculate_next_cell(screen, snakeTemp);
-    //check food
+    
     if (find_food(screen, snakeTemp, movement)) {
         create_food(screen);
     }
-
     //finally, move snake
-    print_snake(screen);
-    return v;
+    return movement_is_valid;
 }
 
+
+//cria a comida e imprime na tela
+
 void create_food(Screen* screen) {
-    time_t t;
     srand((unsigned) time(&t));
     int random_y = rand() % 43;
     int random_x = rand() % 130;

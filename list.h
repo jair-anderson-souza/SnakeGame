@@ -11,9 +11,7 @@
  * Created on March 27, 2018, 7:11 PM
  */
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <time.h>
 #include <ncurses.h>
 
@@ -29,6 +27,7 @@ typedef struct screen Screen;
 typedef struct food Food;
 typedef struct snake Snake;
 
+time_t t;
 
 Screen* init_game(int y, int x);
 
@@ -50,14 +49,14 @@ void free_screen(Screen* screen);
 
 Snake* calculate_coordinate(int y, int x, int newDirection);
 
-bool checkTail(Screen* screen, Snake* snakeTemp);
+int snake_touched_itself(Screen* screen, Snake* snakeTemp);
 //novo cálculo passando as coordenadas
 Screen* calculate_next_cell(Screen* screen, Snake* newSnake);
 
-bool movement_is_valid(Snake* snake);
+int movement_not_crash_in_the_wall(Snake* snake);
 
-bool find_food(Screen* screen, Snake* snake, int movement);
+int find_food(Screen* screen, Snake* snake, int movement);
 
-bool next_movement(Screen* screen, int movement);
+int next_movement(Screen* screen, int movement);
 
 void create_food(Screen* screen);

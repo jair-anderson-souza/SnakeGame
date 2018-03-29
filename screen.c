@@ -26,7 +26,10 @@ struct screen {
 };
 
 int draw_menu() {
-    //escrever menu
+//    clear();
+//    mvprintw(LINES / 2, COLS / 2, "Snake Game");
+//    printw("%d", LINES);
+//    printw("%d", COLS);
 }
 
 int init_mode_cursor() {

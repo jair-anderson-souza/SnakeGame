@@ -10,7 +10,13 @@
 int main(int argc, char* argv[]) {
     //argc numbers of arguments
     //argv value of arguments
+
+
+
     init_mode_cursor();
+
+    draw_menu();
+    
     int key = default_dir;
     bool next = default_next_movement;
 
