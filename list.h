@@ -51,7 +51,7 @@ void free_screen(Screen* screen);
 
 Snake* calculate_coordinate(int y, int x, int newDirection);
 
-bool d(Screen* screen, Snake* snakeTemp);
+bool checkTail(Screen* screen, Snake* snakeTemp);
 //novo cálculo passando as coordenadas
 Screen* calculate_next_cell(Screen* screen, Snake* newSnake);
 

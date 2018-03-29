@@ -104,7 +104,7 @@ Snake * calculate_coordinate(int y, int x, int newDirection) {
     return create_snake(y, x);
 }
 
-bool d(Screen* screen, Snake* snakeTemp) {
+bool checkTail(Screen* screen, Snake* snakeTemp) {
     Snake* snake = screen->snake;
     while (snake != NULL) {
         if (snake->coordinatey == snakeTemp->coordinatey && snake->coordinatex == snakeTemp->coordinatex) {
@@ -155,7 +155,7 @@ bool next_movement(Screen* screen, int movement) {
     //checkNextMovementIsTheSame
 
     //checkTail
-    if (d(screen, snakeTemp)) {
+    if (checkTail(screen, snakeTemp)) {
         v = FALSE;
     }
     screen = calculate_next_cell(screen, snakeTemp);
