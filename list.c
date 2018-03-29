@@ -141,7 +141,7 @@ bool find_food(Screen* screen, Snake* snake, int movement) {
         screen->snake = snakeTemp;
         return TRUE;
     }
-    return TRUE;
+    return FALSE;
 }
 
 bool next_movement(Screen* screen, int movement) {
@@ -158,7 +158,10 @@ bool next_movement(Screen* screen, int movement) {
     //        }
 
     //check food
-    find_food(screen, snakeTemp, movement);
+    if (find_food(screen, snakeTemp, movement)) {
+        create_food(screen);
+    }
+
     //finally, move snake
     print_snake(screen);
     return v;
