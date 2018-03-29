@@ -7,10 +7,12 @@
 #include "screen.h"
 #include "list.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
+    //argc numbers of arguments
+    //argv value of arguments
     init_mode_cursor();
     int key = default_dir;
-    bool next = TRUE;
+    bool next = default_next_movement;
 
     Screen* screen = init_game(size_screen_y, size_screen_x);
 

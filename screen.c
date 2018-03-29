@@ -11,9 +11,6 @@
  * Created on March 27, 2018, 8:15 PM
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "screen.h"
 
 struct snake {
