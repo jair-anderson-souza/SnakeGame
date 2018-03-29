@@ -16,8 +16,7 @@
 #include "screen.h"
 #include "list.h"
 
-#define size_screen_y getmaxy(stdscr)
-#define size_screen_x getmaxx(stdscr)
+
 
 int main(int argc, char** argv) {
 
@@ -33,7 +32,6 @@ int main(int argc, char** argv) {
         clear();
         print_snake(screen);
         print_food(screen);
-        //moveSnake(screen->snake, key);
         key = key_pressed(key);
         next = next_movement(screen, key);
         refresh();

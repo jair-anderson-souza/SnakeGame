@@ -17,6 +17,8 @@
 #define up 0403  
 #define left 0404  
 #define right 0405
+#define size_screen_y getmaxy(stdscr)
+#define size_screen_x getmaxx(stdscr)
 #define default_dir right;
 
 typedef struct snake Snake;
