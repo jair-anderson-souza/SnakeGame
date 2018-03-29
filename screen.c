@@ -38,7 +38,7 @@ int init_mode_cursor() {
     cbreak();
     keypad(stdscr, TRUE); //teclas do teclado funcionarem
     curs_set(0); //desabilitar cursor
-    timeout(100);
+    timeout(90);
 }
 
 int key_pressed(int previous) {

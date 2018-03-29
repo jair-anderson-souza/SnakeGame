@@ -46,12 +46,12 @@ void kill_screen();
 
 void free_snake(Snake* snake);
 
-void free_board(Screen* screen);
+void free_screen(Screen* screen);
 
 
 Snake* calculate_coordinate(int y, int x, int newDirection);
 
-void d(Snake* snake, Snake* snakeTemp);
+bool d(Screen* screen, Snake* snakeTemp);
 //novo cálculo passando as coordenadas
 Screen* calculate_next_cell(Screen* screen, Snake* newSnake);
 

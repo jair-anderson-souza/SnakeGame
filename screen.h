@@ -18,8 +18,8 @@
 #define left 0404  
 #define right 0405
 
-typedef struct screen Screen;
 typedef struct snake Snake;
+typedef struct screen Screen;
 
 int draw_menu();
 

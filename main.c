@@ -39,45 +39,10 @@ int main(int argc, char** argv) {
         next = next_movement(screen, key);
         refresh();
     }
-
+    //free snake
+    //    Snake* snake = screen->snake;
+    //    free_snake(snake);
+    free_screen(screen);
     end_window();
-    //    Screen* screen = createScreen(y, x);
-
-
-    //    initscr();
-    //    noecho();
-    //    cbreak();
-    //    keypad(stdscr, TRUE); //teclas do teclado funcionarem
-    //    curs_set(0); //desabilitar cursor
-    //    timeout(100);
-    // 43, 130
-
-
-    //    screen
-
-    //    Snake* snake1 = malloc(sizeof(Snake));
-    //    snake1->coordinatey = 10;
-    //    snake1->coordinatex = 10;
-    //
-    //    Snake* snake2 = (Snake*) malloc(sizeof(Snake));
-    //    snake2->coordinatey = 10;
-    //    snake2->coordinatex = 9;
-    //
-    //    snake1->next = snake2;
-    //
-    //    Screen* screen = createScreen(snake1, 10, 10);
-    //    int key = right;
-    //
-    //    while (true) {
-    //        clear();
-    //        printSnake(screen->snake);
-    //        //moveSnake(screen->snake, key);
-    //        key = keyPressed(key);
-    //        nextMovement(screen, key);
-    //        refresh();
-    //    }
-    //    freeSnake(screen->snake);
-    //    freeBoard(screen);
-    //    killScreen();
     return 0;
 }

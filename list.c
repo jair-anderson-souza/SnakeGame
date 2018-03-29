@@ -72,17 +72,15 @@ void kill_screen() {
     endwin();
 }
 
-void free_snake(Snake * snake) {
-    Snake* p = snake;
-    while (p != NULL) {
-        Snake* t = p->next;
-        free(p);
-        p = snake;
+void free_snake(Snake* snake) {
+    if (snake->next != NULL) {
+        free_snake(snake->next);
     }
+    free(snake);
 
 }
 
-void free_board(Screen * screen) {
+void free_screen(Screen* screen) {
     free(screen);
 }
 
@@ -106,11 +104,15 @@ Snake * calculate_coordinate(int y, int x, int newDirection) {
     return create_snake(y, x);
 }
 
-void d(Snake* snake, Snake * snakeTemp) {
+bool d(Screen* screen, Snake* snakeTemp) {
+    Snake* snake = screen->snake;
     while (snake != NULL) {
-        snake->coordinatey == snakeTemp->coordinatey && snake->coordinatex == snakeTemp->coordinatex;
+        if (snake->coordinatey == snakeTemp->coordinatey && snake->coordinatex == snakeTemp->coordinatex) {
+            return TRUE;
+        }
         snake = snake->next;
     }
+    return FALSE;
 }
 
 //novo cálculo passando as coordenadas
@@ -127,8 +129,8 @@ Screen* calculate_next_cell(Screen* screen, Snake* newSnake) {
     return screen;
 }
 
-bool movement_is_valid(Snake * snake) {
-    if (snake->coordinatey <= 1 || snake->coordinatex <= 1 || snake->coordinatey >= size_screen_y || snake->coordinatex >= size_screen_x) {
+bool movement_is_valid(Snake* snake) {
+    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y || snake->coordinatex > size_screen_x) {
         return FALSE;
     }
     return TRUE;
@@ -147,16 +149,16 @@ bool find_food(Screen* screen, Snake* snake, int movement) {
 bool next_movement(Screen* screen, int movement) {
     bool v = TRUE;
     Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
-    screen = calculate_next_cell(screen, snakeTemp);
 
     //checkIfCrashOnTheWall
     v = movement_is_valid(snakeTemp);
     //checkNextMovementIsTheSame
-    //checkTail
-    //        if (d(snake, snakeTemp)) {
-    //            
-    //        }
 
+    //checkTail
+    if (d(screen, snakeTemp)) {
+        v = FALSE;
+    }
+    screen = calculate_next_cell(screen, snakeTemp);
     //check food
     if (find_food(screen, snakeTemp, movement)) {
         create_food(screen);
