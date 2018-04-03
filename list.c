@@ -56,8 +56,6 @@ void print_food(Screen* screen) {
     mvaddch(food->coordinatey, food->coordinatex, ACS_BLOCK);
 }
 
-//return some error e.g.
-
 Snake* create_snake(int y, int x) {
     Snake* snake = (Snake*) malloc(sizeof (Snake));
     if (snake != NULL) {
@@ -84,7 +82,6 @@ void free_screen(Screen* screen) {
     free(screen);
 }
 
-//esse metodo atualiza as coordenadas da cobra, de acordo com a direção passada no parâmetro
 Snake * calculate_coordinate(int y, int x, int newDirection) {
     switch (newDirection) {
         case left:
@@ -104,7 +101,6 @@ Snake * calculate_coordinate(int y, int x, int newDirection) {
     }
     return create_snake(y, x);
 }
-//esse método verifica se o movimento da cobra fez ela tocar em si mesma, caso sim o jogo acaba
 
 int snake_touched_itself(Screen* screen, Snake* snakeTemp) {
     Snake* snake = screen->snake;
@@ -116,8 +112,6 @@ int snake_touched_itself(Screen* screen, Snake* snakeTemp) {
     }
     return 0;
 }
-
-//esse método faz a cobra se mover, atualizando
 
 Screen* calculate_next_cell(Screen* screen, Snake* newSnake) {
     newSnake->next = screen->snake;
@@ -131,18 +125,16 @@ Screen* calculate_next_cell(Screen* screen, Snake* newSnake) {
     return screen;
 }
 
-//esse método verifica se a o novo movimento da cobra fez ela bater na parede do console, caso sim o jogo acaba
-
 int movement_not_crash_in_the_wall(Snake* snake) {
-    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y|| snake->coordinatex > size_screen_x) {
+    if (snake->coordinatey < 1 || snake->coordinatex < 1 || snake->coordinatey > size_screen_y || snake->coordinatex > size_screen_x) {
         return 0;
     }
     return 1;
 }
 
 
-//esse método ver se a cobra encontrou uma comida, caso sim ela aumenta o tamaho da cobra
 //refatorar esse método
+
 int find_food(Screen* screen, Snake* snake, int movement) {
     if (snake->coordinatey == screen->food->coordinatey && snake->coordinatex == screen->food->coordinatex) {
         Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
@@ -154,6 +146,7 @@ int find_food(Screen* screen, Snake* snake, int movement) {
 }
 
 //refatorar esse método, está uma porcaria
+
 int next_movement(Screen* screen, int movement) {
     int movement_is_valid = 1;
     Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
@@ -165,16 +158,13 @@ int next_movement(Screen* screen, int movement) {
     }
     //colocar aqui uma condição ou método pra evitar segurar na direção e a cobra ficar indo sem parar
     screen = calculate_next_cell(screen, snakeTemp);
-    
+
     if (find_food(screen, snakeTemp, movement)) {
         create_food(screen);
     }
     //finally, move snake
     return movement_is_valid;
 }
-
-
-//cria a comida e imprime na tela
 
 void create_food(Screen* screen) {
     srand((unsigned) time(&t));
