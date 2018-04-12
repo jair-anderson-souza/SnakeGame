@@ -35,7 +35,6 @@ Screen* create_screen(int y, int x) {
         screen->coordinatex = x;
         return screen;
     }
-    //lembrar de pesquisar como mandar erro pra tela
     return NULL;
 }
 
@@ -70,12 +69,12 @@ void kill_screen() {
     endwin();
 }
 
-void freeSnake(Snake* snake) {
+void free_snake(Screen* screen) {
+    Snake* snake = screen->snake;
     if (snake->next != NULL) {
-        freeSnake(snake->next);
+        free_snake(screen);
     }
     free(snake);
-
 }
 
 void free_screen(Screen* screen) {
@@ -132,9 +131,6 @@ int movement_not_crash_in_the_wall(Snake* snake) {
     return 1;
 }
 
-
-//refatorar esse método
-
 int find_food(Screen* screen, Snake* snake, int movement) {
     if (snake->coordinatey == screen->food->coordinatey && snake->coordinatex == screen->food->coordinatex) {
         Snake* snakeTemp = calculate_coordinate(screen->snake->coordinatey, screen->snake->coordinatex, movement);
@@ -174,4 +170,10 @@ void create_food(Screen* screen) {
     food->coordinatey = random_y;
     food->coordinatex = random_x;
     screen->food = food;
+}
+
+void free_food(Screen* screen) {
+    if (screen->food != NULL) {
+        free(screen->food);
+    }
 }

@@ -27,7 +27,6 @@ typedef struct snake Snake;
 typedef struct screen Screen;
 
 
-int draw_menu();
 
 int init_mode_cursor();
 

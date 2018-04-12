@@ -12,13 +12,10 @@ int main(int argc, char* argv[]) {
     //argv value of arguments
 
 
-
     init_mode_cursor();
 
-    draw_menu();
-    
     int key = default_dir;
-    bool next = default_next_movement;
+    int next = default_next_movement;
 
     Screen* screen = init_game(size_screen_y, size_screen_x);
 
@@ -32,10 +29,9 @@ int main(int argc, char* argv[]) {
         next = next_movement(screen, key);
         refresh();
     }
-    //free snake
-    //    Snake* snake = screen->snake;
-    //    freeSnake(screen->snake);
-    free_screen(screen);
     end_window();
+    free_food(screen);
+    free_snake(screen);
+    free_screen(screen);
     return 0;
 }

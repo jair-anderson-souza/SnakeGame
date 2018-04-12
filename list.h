@@ -38,19 +38,19 @@ int calculate_middle_screen(int value);
 void print_snake(Screen* screen);
 
 void print_food(Screen * screen);
-//return some error e.g.
+
 Snake* create_snake(int y, int x);
 
 void kill_screen();
 
-void freeSnake(Snake* snake);
+void free_snake(Screen* screen);
 
 void free_screen(Screen* screen);
 
 Snake* calculate_coordinate(int y, int x, int newDirection);
 
 int snake_touched_itself(Screen* screen, Snake* snakeTemp);
-//novo cálculo passando as coordenadas
+
 Screen* calculate_next_cell(Screen* screen, Snake* newSnake);
 
 int movement_not_crash_in_the_wall(Snake* snake);
@@ -60,3 +60,5 @@ int find_food(Screen* screen, Snake* snake, int movement);
 int next_movement(Screen* screen, int movement);
 
 void create_food(Screen* screen);
+
+void free_food(Screen* screen);

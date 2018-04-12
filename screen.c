@@ -25,12 +25,6 @@ struct screen {
     Snake* snake;
 };
 
-int draw_menu() {
-//    clear();
-//    mvprintw(LINES / 2, COLS / 2, "Snake Game");
-//    printw("%d", LINES);
-//    printw("%d", COLS);
-}
 
 int init_mode_cursor() {
     initscr();
