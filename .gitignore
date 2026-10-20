@@ -1,55 +1,247 @@
-# Prerequisites
-*.d
+```gitignore
+# ==================================================
+# JEKYLL
+# ==================================================
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+.jekyll-assets-cache/
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# ==================================================
+# RUBY E BUNDLER
+# ==================================================
 
-# Precompiled Headers
-*.gch
-*.pch
+.bundle/
+vendor/bundle/
+vendor/cache/
+vendor/gems/
+vendor/ruby/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+*.gem
+.ruby-version
+.ruby-gemset
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Não ignorar Gemfile.lock por padrão:
+# ele deve ser versionado em aplicações.
 
-# Executables
-*.exe
+# ==================================================
+# JAVASCRIPT / NODE.JS
+# ==================================================
+
+node_modules/
+.npm/
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/install-state.gz
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==================================================
+# BUILD E ARTEFATOS GERADOS
+# ==================================================
+
+build/
+dist/
+out/
+tmp/
+temp/
+.cache/
+.parcel-cache/
+.turbo/
+.esbuild/
+.webpack/
+
+# Preserve arquivos de configuração versionáveis
+!.yarn/patches/
+!.yarn/plugins/
+!.yarn/releases/
+
+# ==================================================
+# TESTES E VALIDAÇÃO
+# ==================================================
+
+test-results/
+test-results-*/
+results/
+reports/
+test-reports/
+allure-results/
+allure-report/
+
+# JUnit e relatórios
+junit-results.xml
+junit.xml
+nosetests.xml
+pytest-report.xml
+test-results.xml
+
+# Cobertura
+coverage/
+.coverage
+.coverage.*
+htmlcov/
+lcov.info
+*.gcda
+*.gcno
+*.gcov
+*.prof
+*.profraw
+*.profdata
+
+# ==================================================
+# KUNIT / KERNEL LINUX
+# ==================================================
+
+.kunit/
+kunit.log
+kunit-results.xml
+kunit-results.json
+
+# ==================================================
+# BENCHMARKS E PROFILING
+# ==================================================
+
+benchmarks/output/
+benchmark-results/
+perf.data
+perf.data.old
+perf.data.*
+trace.dat
+trace.dat.*
+trace.txt
+*.ftrace
+flamegraph.svg
+
+# ==================================================
+# LOGS, DUMPS E DIAGNÓSTICOS
+# ==================================================
+
+*.log
+*.log.*
+logs/
 *.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+*.err
+*.core
+core
+core.*
+*.dump
+*.trace
+*.stackdump
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+# ==================================================
+# ARQUIVOS TEMPORÁRIOS E LOCKS
+# ==================================================
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+*.pid
+*.pid.lock
 
-/nbproject
-snake
+# Evite a regra global *.lock:
+# pode afetar arquivos de dependências importantes.
+
+# ==================================================
+# TESTES LOCAIS E PRIVADOS
+# ==================================================
+
+tests/local/
+tests/private/
+tests/output/
+tests/tmp/
+tests/logs/
+tests/results/
+tests/reports/
+
+tests/*.local.sh
+tests/*.env
+tests/.env
+tests/.env.*
+
+# ==================================================
+# SEGREDOS E VARIÁVEIS DE AMBIENTE
+# ==================================================
+
+.env
+.env.*
+!.env.example
+!.env.test.example
+
+# Chaves privadas e certificados sensíveis
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+
+# Nunca versionar credenciais reais.
+# Certificados públicos necessários ao projeto
+# devem ser avaliados individualmente.
+
+# ==================================================
+# EDITORES E IDEs
+# ==================================================
+
+.vscode/
+.idea/
+*.sublime-workspace
+*.code-workspace
+
+# Para compartilhar configurações do VS Code,
+# remova a regra .vscode/ e ignore apenas
+# arquivos locais específicos.
+
+# ==================================================
+# SISTEMAS OPERACIONAIS
+# ==================================================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+.Trashes/
+
+# ==================================================
+# PYTHON
+# ==================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.venv/
+venv/
+ENV/
+
+# ==================================================
+# CI/CD E FERRAMENTAS LOCAIS
+# ==================================================
+
+# Arquivos de execução locais
+*.local
+*.local.*
+.env.local
+
+# ==================================================
+# EXCEÇÕES PARA ARQUIVOS DE EXEMPLO
+# ==================================================
+
+!.gitkeep
+!.env.example
+!.env.test.example
+```
